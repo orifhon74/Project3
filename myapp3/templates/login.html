@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container" style="text-align: center; margin-top: 50px;">
+        <h1>Welcome to the Maintenance System</h1>
+        <div style="margin-top: 20px;">
+            <button onclick="location.href='{{ url_for('manager_page') }}'" class="btn btn-secondary mb-2" style="margin: 10px;">Manager Page</button>
+            <button onclick="location.href='{{ url_for('staff_page') }}'" class="btn btn-secondary mb-2" style="margin: 10px;">Staff Page</button>
+<!--            <button onclick="location.href='{{ url_for('tenant_page') }}'" class="btn btn-secondary mb-2" style="margin: 10px;">Tenant Page</button>-->
+
+             <!-- Tenant ID Form -->
+            <form action="{{ url_for('tenant_page') }}" method="GET">
+                <input type="number" name="tenant_id" placeholder="ID:" required>
+                <button type="submit" class="btn btn-secondary mb-2">Go to Tenant Page</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+

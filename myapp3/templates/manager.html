@@ -1,0 +1,90 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Manager Dashboard</title>-->
+<!--    &lt;!&ndash; Include Bootstrap for styling if desired &ndash;&gt;-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>Manager Dashboard</h1>-->
+<!--    &lt;!&ndash; Form to Add New Tenant &ndash;&gt;-->
+<!--    <h2>Add New Tenant</h2>-->
+<!--    <form method="POST" action="{{ url_for('add_tenant') }}">-->
+<!--        <input type="text" name="name" placeholder="Name" required>-->
+<!--        <input type="text" name="phone" placeholder="Phone Number" required>-->
+<!--        <input type="email" name="email" placeholder="Email" required>-->
+<!--        <input type="date" name="check_in_date" placeholder="Check-In Date" required>-->
+<!--        <input type="text" name="apartment_number" placeholder="Apartment Number" required>-->
+<!--        <button type="submit">Add Tenant</button>-->
+<!--    </form>-->
+
+<!--    &lt;!&ndash; Form to Move Tenant &ndash;&gt;-->
+<!--    <h2>Move Tenant</h2>-->
+<!--    <form method="POST" action="{{ url_for('move_tenant') }}">-->
+<!--        <input type="number" name="tenant_id" placeholder="Tenant ID" required>-->
+<!--        <input type="text" name="new_apartment_number" placeholder="New Apartment Number" required>-->
+<!--        <button type="submit">Move Tenant</button>-->
+<!--    </form>-->
+
+<!--    &lt;!&ndash; List of Tenants with Delete Option &ndash;&gt;-->
+<!--    <h2>Tenant List</h2>-->
+<!--    <ul id="tenant-list">-->
+<!--        &lt;!&ndash; Dynamically generated list of tenants &ndash;&gt;-->
+<!--        {% for tenant in tenants %}-->
+<!--        <li>-->
+<!--            {{ tenant.name }} - {{ tenant.apartment_number }}-->
+<!--            <form method="POST" action="{{ url_for('delete_tenant', tenant_id=tenant.id) }}">-->
+<!--                <button type="submit">Delete</button>-->
+<!--            </form>-->
+<!--        </li>-->
+<!--        {% endfor %}-->
+<!--    </ul>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manager Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+    body { font-family: Arial, sans-serif; }
+    .sign-out { float: right; }
+</style>
+<body>
+    <h1 style="margin: 10px;">Manager Dashboard</h1>
+    <a href="{{ url_for('login') }}" style="margin: 10px;" class="btn btn-danger mb-3 sign-out">Log Out</a>
+    <h3 style="margin: 10px;">Add New Tenant</h3>
+    <form action="{{ url_for('add_tenant') }}" method="post">
+        <!-- Fields for tenant information -->
+        <input type="text" name="id" placeholder="Id" required>
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="text" name="phone_number" placeholder="Phone Number" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="apartment_number" placeholder="Apartment Number" required>
+        <input type="date" name="check_in_date" placeholder="Check-in Date" required>
+        <!-- Check-out date can be omitted or set in the future -->
+        <button type="submit" class="btn btn-secondary mb-2">Add Tenant</button>
+    </form>
+
+    <h3 style="margin: 10px;">Move Tenant</h3>
+    <form action="{{ url_for('move_tenant') }}" method="post">
+        <!-- Assuming tenant ID is known, e.g., selected from a list -->
+        <input type="number" name="tenant_id" placeholder="Tenant ID" required>
+        <input type="text" name="new_apartment_number" placeholder="New Apartment Number" required>
+        <button type="submit" class="btn btn-secondary mb-2">Move Tenant</button>
+    </form>
+
+    <h3 style="margin: 10px;">Delete Tenant</h3>
+    <form action="{{ url_for('delete_tenant') }}" method="post">
+        <input type="number" name="tenant_id" placeholder="Tenant ID" required>
+        <button type="submit" class="btn btn-secondary mb-2">Delete Tenant</button>
+    </form>
+
+    <button onclick="location.href='{{ url_for('tenants') }}'" class="btn btn-secondary mb-2" style="margin-top: 40px; margin-left: 10px;">Tenants</button>
+
+</body>
+</html>
+

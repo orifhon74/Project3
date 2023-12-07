@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+    body { font-family: Arial, sans-serif; }
+    .sign-out { float: right; }
+</style>
+<body>
+    <a href="{{ url_for('tenant_page', tenant_id=tenant_id) }}" style="margin: 10px;" class="btn btn-secondary mb-2 sign-out">Go Back</a>
+    <h1>Requests: </h1>
+    <table class="table" style="margin-top: 40px;">
+            <thead>
+                <tr>
+                    <th>Apartment Number</th>
+                    <th>Area</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop over filtered maintenance requests -->
+                {% for request in requests %}
+                <tr>
+                    <td>{{ request.apartment_number }}</td>
+                    <td>{{ request.area }}</td>
+                    <td>{{ request.description }}</td>
+                    <td>{{ request.date_time.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    <td>{{ request.status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+</body>
+</html>

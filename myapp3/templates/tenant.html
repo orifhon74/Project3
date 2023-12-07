@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenant Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { width: 80%; margin: auto; }
+        .request-form { margin-top: 20px; }
+        .request-history { margin-top: 40px; background: #f0f0f0; padding: 10px; }
+        .sign-out { float: right; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tenant</h1>
+        <a href="{{ url_for('login') }}" class="btn btn-danger mb-3 sign-out">Log Out</a>
+        <div class="request-form">
+            <h3>Submit Maintenance Request</h3>
+            <form action="{{ url_for('submit_request', tenant_id=tenant_id) }}" method="post" enctype="multipart/form-data">
+<!--                <label for="id">Id:</label>-->
+<!--                <input type="text" id="id" name="id" required><br><br>-->
+
+                <label for="apartment_number">Apartment Number:</label>
+                <input type="text" id="apartment_number" name="apartment_number" required><br><br>
+
+                <label for="problem_area">Area of the Problem:</label>
+                <select id="problem_area" name="problem_area">
+                    <option value="kitchen">Kitchen</option>
+                    <option value="bathroom">Bathroom</option>
+                    <option value="bedroom">Bedroom</option>
+                        <option value="living_room">Living Room</option>
+                </select><br><br>
+
+                <label for="description">Problem Description:</label><br>
+                <textarea id="description" name="description" required></textarea><br><br>
+
+                <label for="image">Optional Photo:</label>
+<!--                <input type="file" id="photo_url" name="photo_url" accept="image/*"><br><br>-->
+                <input type="file" id="image" name="image" class="form-control-file mb-2" accept="image/*"><br><br>
+
+                <button type="submit" class="btn btn-secondary mb-2">Submit Request</button>
+            </form>
+        </div>
+        <!-- Request History Section -->
+<!--        <button onclick="location.href='{{ url_for('maintenance_request_page') }}'" class="btn btn-secondary mb-2" style="margin-top: 40px; margin-left: 10px;">Requests</button>-->
+<!--        <button onclick="location.href='{{ url_for('maintenance_request_page', tenant_id=tenant_id) }}'"-->
+<!--                class="btn btn-secondary mb-2" style="margin-top: 40px; margin-left: 10px;">Requests</button>-->
+        <button onclick="location.href='{{ url_for('maintenance_request_page', tenant_id=tenant_id) }}'" class="btn btn-secondary mb-2" style="margin-top: 40px; margin-left: 10px;">Requests</button>
+
+
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .sign-out { float: right; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-3">Staff Dashboard</h1>
+        <a href="{{ url_for('login') }}" class="btn btn-danger mb-3 sign-out">Log Out</a>
+        <form method="GET" class="mb-4">
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label for="apartment_number">Apartment Number:</label>
+                    <input type="text" class="form-control" id="apartment_number" name="apartment_number">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="area">Area:</label>
+                    <select id="area" class="form-control" name="area">
+                        <option value="">Any</option>
+                        <option value="kitchen">Kitchen</option>
+                        <option value="bathroom">Bathroom</option>
+                        <option value="bedroom">Bedroom</option>
+                        <option value="living_room">Living Room</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="status">Status:</label>
+                    <select id="status" class="form-control" name="status">
+                        <option value="">Any</option>
+                        <option value="pending">Pending</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" class="form-control" id="start_date" name="start_date">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="end_date">End Date:</label>
+                    <input type="date" class="form-control" id="end_date" name="end_date">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-secondary">Filter</button>
+        </form>
+
+        <!-- Table of maintenance requests -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Apartment Number</th>
+                    <th>Area</th>
+                    <th>Description</th>
+                    <th>Date/Time</th>
+                    <th>Image</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop over filtered maintenance requests -->
+                {% for request in maintenance_requests %}
+                <tr>
+                    <td>{{ request.apartment_number }}</td>
+                    <td>{{ request.area }}</td>
+                    <td>{{ request.description }}</td>
+                    <td>{{ request.date_time.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    <td>
+                        {% if request.image %}
+                            <img src="{{ url_for('static', filename='images/' + request.image) }}" width="100">
+                        {% else %}
+                            <p>No image available</p>
+                        {% endif %}
+                    </td>
+                    <td>{{ request.status }}</td>
+                    <td>
+                        {% if request.status == 'pending' %}
+                        <form action="{{ url_for('update_request', request_id=request.id) }}" method="post">
+                            <input type="hidden" name="status" value="completed">
+                            <button type="submit" class="btn btn-success" style="width: 100px;">Mark as Completed</button>
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+

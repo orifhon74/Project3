@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+    body { font-family: Arial, sans-serif; }
+    .sign-out { float: right; }
+</style>
+<body>
+    <a href="{{ url_for('manager_page') }}" style="margin: 10px;" class="btn btn-secondary mb-2 sign-out">Go Back</a>
+    <h1>Tenants:</h1>
+    <table class="table" style="margin-top: 40px;">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Apartment Number</th>
+            <th>Check-In</th>
+            <th>Check-Out</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for tenant in tenants %}
+        <tr>
+            <td>{{ tenant.id }}</td>
+            <td>{{ tenant.name }}</td>
+            <td>{{ tenant.email }}</td>
+            <td>{{ tenant.phone_number }}</td>
+            <td>{{ tenant.apartment_number }}</td>
+            <td>{{ tenant.check_in_date }}</td>
+            <td>{{ tenant.check_out_date }}</td>
+
+        </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>
